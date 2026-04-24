@@ -148,4 +148,4 @@ def save_attendance():
 
 if __name__ == '__main__':
     print("[*] Starting AuraTrack Backend on port 5000...")
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)
