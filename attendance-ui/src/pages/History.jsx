@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BorderGlow from '../components/BorderGlow';
 import { Download, Calendar, Filter } from 'lucide-react';
 
 export default function History() {
-  const records = [
-    { id: 101, date: '2023-10-24', name: 'John Doe', status: 'Present', conf: '98%', time: '09:01 AM' },
-    { id: 102, date: '2023-10-24', name: 'Jane Smith', status: 'Present', conf: '94%', time: '09:05 AM' },
-    { id: 103, date: '2023-10-24', name: 'Michael O.', status: 'Absent', conf: '-', time: '-' },
-    { id: 104, date: '2023-10-23', name: 'John Doe', status: 'Present', conf: '97%', time: '08:55 AM' },
-    { id: 105, date: '2023-10-23', name: 'Jane Smith', status: 'Present', conf: '99%', time: '08:58 AM' },
-    { id: 106, date: '2023-10-23', name: 'Michael O.', status: 'Present', conf: '86%', time: '09:12 AM' },
-    { id: 107, date: '2023-10-22', name: 'John Doe', status: 'Present', conf: '95%', time: '08:59 AM' },
-    { id: 108, date: '2023-10-22', name: 'Jane Smith', status: 'Present', conf: '98%', time: '08:57 AM' },
-  ];
+  const [records, setRecords] = useState([]);
+  
+  useEffect(() => {
+    fetchHistory();
+  }, []);
+
+  const fetchHistory = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/history');
+      if (res.ok) {
+        const data = await res.json();
+        setRecords(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch history:", err);
+    }
+  };
+
+  const exportCSV = () => {
+    let csvContent = "data:text/csv;charset=utf-8,Date,Name,Status,Match Confidence,Time In\n";
+    records.forEach(r => {
+      csvContent += `${r.date},${r.name},${r.status},${r.conf},${r.time}\n`;
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "attendance_history.csv");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
 
   return (
     <div className="w-full max-w-6xl">
@@ -26,7 +47,9 @@ export default function History() {
           <button className="flex items-center gap-2 bg-[#1a1025] hover:bg-white/10 border border-white/10 text-white px-5 py-3 rounded-full font-semibold transition-all">
             <Filter size={18} /> Filter
           </button>
-          <button className="flex items-center gap-2 bg-gradient-to-r from-[#c084fc] to-[#38bdf8] hover:from-[#c084fc] hover:to-[#5eead4] text-white px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(192,132,252,0.4)] hover:shadow-[0_0_30px_rgba(192,132,252,0.6)] transition-all transform hover:-translate-y-1">
+          <button 
+            onClick={exportCSV}
+            className="flex items-center gap-2 bg-gradient-to-r from-[#c084fc] to-[#38bdf8] hover:from-[#c084fc] hover:to-[#5eead4] text-white px-6 py-3 rounded-full font-bold shadow-[0_0_20px_rgba(192,132,252,0.4)] hover:shadow-[0_0_30px_rgba(192,132,252,0.6)] transition-all transform hover:-translate-y-1">
             <Download size={20} /> Export CSV
           </button>
         </div>

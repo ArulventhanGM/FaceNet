@@ -146,6 +146,25 @@ def save_attendance():
     return jsonify({"status": "success", "saved": len(records)})
 
 
+@app.route('/api/history', methods=['GET'])
+def get_history():
+    attendance_file = "attendance.csv"
+    records = []
+    if os.path.exists(attendance_file):
+        with open(attendance_file, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                records.append({
+                    "id": id(row), # simple unique id for react key
+                    "date": row.get("Timestamp", "").split(" ")[0] if " " in row.get("Timestamp", "") else "-",
+                    "time": row.get("Timestamp", "").split(" ")[1] if " " in row.get("Timestamp", "") else "-",
+                    "name": row.get("Name", "Unknown"),
+                    "status": row.get("Status", "Unknown"),
+                    "conf": str(row.get("Confidence_Percentage", "0")) + "%"
+                })
+    # Return reversed records so newest is on top
+    return jsonify(records[::-1])
+
 if __name__ == '__main__':
     print("[*] Starting AuraTrack Backend on port 5000...")
     app.run(port=5000, debug=False)
