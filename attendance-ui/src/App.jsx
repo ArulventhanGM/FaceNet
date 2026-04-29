@@ -19,7 +19,7 @@ function App() {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c084fc] to-[#38bdf8] flex items-center justify-center shadow-lg shadow-purple-500/20">
               <Sparkles size={20} className="text-white" />
             </div>
-            <h1 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#c084fc] via-[#f472b6] to-[#38bdf8] tracking-widest drop-shadow-sm">AuraTrack</h1>
+            <h1 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#c084fc] via-[#f472b6] to-[#38bdf8] tracking-widest drop-shadow-sm">FaceLog</h1>
           </div>
 
           <div className="flex items-center gap-2 bg-[#0a0512] p-1.5 rounded-full border border-white/5 shadow-inner">
