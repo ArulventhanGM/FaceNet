@@ -37,7 +37,8 @@ export default function Recognition() {
     formData.append('image', fileObject);
     
     try {
-      const res = await fetch('http://localhost:5000/api/recognize', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/recognize`, {
         method: 'POST',
         body: formData
       });
@@ -98,7 +99,8 @@ export default function Recognition() {
 
   const saveAttendance = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/attendance/save', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/attendance/save`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

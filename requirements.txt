@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+ultralytics
+deepface
+opencv-python-headless
+numpy
+tf-keras

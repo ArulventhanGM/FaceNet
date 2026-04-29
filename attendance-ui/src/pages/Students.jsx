@@ -9,8 +9,9 @@ export default function Students() {
   // Load students from Backend CSV
   useEffect(() => {
     const fetchStudents = async () => {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       try {
-        const res = await fetch('http://localhost:5000/api/students');
+        const res = await fetch(`${apiUrl}/api/students`);
         const data = await res.json();
         setStudents(data);
       } catch (err) {
@@ -21,8 +22,9 @@ export default function Students() {
   }, []);
 
   const handleDelete = async (idToRemove) => {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
     try {
-      await fetch(`http://localhost:5000/api/students/${idToRemove}`, { method: 'DELETE' });
+      await fetch(`${apiUrl}/api/students/${idToRemove}`, { method: 'DELETE' });
       setStudents(students.filter(student => String(student.id) !== String(idToRemove)));
     } catch (err) {
       alert("Failed to delete. Is the python backend server running?");
@@ -43,8 +45,9 @@ export default function Students() {
       formData.append('image', file);
       formData.append('name', personName);
 
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       try {
-        const res = await fetch('http://localhost:5000/api/students', {
+        const res = await fetch(`${apiUrl}/api/students`, {
           method: 'POST',
           body: formData
         });
@@ -100,7 +103,7 @@ export default function Students() {
             <div className="p-6 h-[300px] flex flex-col items-center text-center bg-[#060010] rounded-[24px]">
               <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white/10 mb-4 shadow-xl shrink-0 bg-gray-900">
                 <img 
-                  src={`http://localhost:5000/api/images/${student.image_filename}`} 
+                  src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/images/${student.image_filename}`} 
                   alt={student.name} 
                   className="w-full h-full object-cover" 
                   onError={(e) => { e.target.src = "https://i.pravatar.cc/150?u=placeholder" }}

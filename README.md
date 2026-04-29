@@ -1,3 +1,12 @@
+---
+title: Attendance Tracker
+emoji: 🏃
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 ##  Official YOLOv8 训练自己的数据集并基于NVIDIA TensorRT和华为昇腾端到端模型加速以及安卓手机端部署
 
 
