@@ -19,10 +19,10 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div className="w-full flex items-center justify-center min-h-[80vh]">
+    <div className="w-full flex items-center justify-center min-h-[80vh] px-4 md:px-0">
       <div className="w-full max-w-md">
         <BorderGlow glowColor="340 100 70" colors={['#f472b6', '#c084fc', '#38bdf8']} borderRadius={24} glowRadius={30}>
-          <div className="bg-[#060010] p-10 rounded-[24px] shadow-2xl flex flex-col items-center">
+          <div className="bg-[#060010] p-6 sm:p-10 rounded-[24px] shadow-2xl flex flex-col items-center">
             
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c084fc] to-[#38bdf8] flex items-center justify-center shadow-lg shadow-purple-500/30 mb-6">
               <Sparkles size={32} className="text-white" />
