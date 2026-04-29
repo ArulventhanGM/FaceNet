@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import BorderGlow from '../components/BorderGlow';
-import { LogIn, User, Lock, Sparkles } from 'lucide-react';
+import { LogIn, User, Lock, Sparkles, Eye, EyeOff } from 'lucide-react';
 
 export default function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
@@ -54,12 +55,21 @@ export default function Login({ onLogin }) {
                     <Lock size={18} className="text-gray-500" />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-[#10081c]/80 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#c084fc] focus:border-[#c084fc] block pl-11 p-3.5 transition-all outline-none placeholder-gray-600"
+                    className="w-full bg-[#10081c]/80 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#c084fc] focus:border-[#c084fc] block pl-11 pr-11 p-3.5 transition-all outline-none placeholder-gray-600"
                     placeholder="••••••••"
                   />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="p-1 hover:bg-white/5 rounded-md text-gray-500 hover:text-gray-300 transition-colors cursor-pointer"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
