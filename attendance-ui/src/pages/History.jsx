@@ -11,7 +11,7 @@ export default function History() {
 
   const fetchHistory = async () => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '';
       const res = await fetch(`${apiUrl}/api/history`);
       if (res.ok) {
         const data = await res.json();
